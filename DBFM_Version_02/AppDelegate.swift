@@ -3,7 +3,7 @@
 //  DBFM_Version_02
 //
 //  Created by Edward on 14-9-11.
-//  Copyright (c) 2014年 Edward. All rights reserved.
+//  Copyright (c) 2014 Edward. All rights reserved.
 //
 
 import UIKit
@@ -14,9 +14,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
 
+    var startView: StartView?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
+        var sec: UIWindow = UIWindow(frame: UIScreen.mainScreen().bounds)
         // Override point for customization after application launch.
+        //self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        // Override point for customization after application launch.
+//        self.viewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
+        self.startView = StartView(nibName: "StartView",bundle: nil)
+        sec.rootViewController = self.startView
+        sec.makeKeyAndVisible()
+        self.window = sec
         return true
     }
 
