@@ -25,7 +25,7 @@ class StartView:UIViewController ,LeftButtonProtocol ,UIGestureRecognizerDelegat
         self.addChildViewController(self.viewController)
         viewController.didMoveToParentViewController(self)
         viewController.delegate = self
-        self.setupGesture()
+        //self.setupGesture()
 //        self.presentViewController(self.viewController,
 //                          animated: false,
 //                          completion: nil)
@@ -63,7 +63,7 @@ class StartView:UIViewController ,LeftButtonProtocol ,UIGestureRecognizerDelegat
             //println("tttt")
         }
         
-        self.setParameterViewValid = true
+        //self.setParameterViewValid = true
         var leftView:UIView = self.setParameterView.view
         
         // Set up view shadows
@@ -88,6 +88,7 @@ class StartView:UIViewController ,LeftButtonProtocol ,UIGestureRecognizerDelegat
     
     //回归主界面
     func backToOriginalPosition(){
+        println("back here")
         UIView.animateWithDuration(SLIDE_TIMING,
             animations: { () -> Void in
                 self.viewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
@@ -95,7 +96,7 @@ class StartView:UIViewController ,LeftButtonProtocol ,UIGestureRecognizerDelegat
             completion: { (finished: Bool) -> Void in
                 if (finished) {
                     self.resetMainView()
-                    //self.setParameterViewValid = false
+                    self.setParameterViewValid = false
                     self.viewController.leftButton.tag = 1
                 }})
         
@@ -125,6 +126,7 @@ class StartView:UIViewController ,LeftButtonProtocol ,UIGestureRecognizerDelegat
                     self.viewController.leftButton.tag = 0
                     self.setParameterViewValid = true
                     //self.CycleType = self.setParameterView.cycleType
+                    println("按钮tag值为\(self.viewController.leftButton.tag)")
                 }
             })
     }
@@ -185,13 +187,18 @@ class StartView:UIViewController ,LeftButtonProtocol ,UIGestureRecognizerDelegat
             
             if(!slideEffective){
                 self.backToOriginalPosition()
+                println("状态1 按钮tag值为\(self.viewController.leftButton.tag)")
             }else{
+                println("setParameterViewValid 值为\(setParameterViewValid)")
                 if(!setParameterViewValid){
                     self.moveToLeftView()
+                println("状态2 按钮tag值为\(self.viewController.leftButton.tag)")
                 }else{
                     println("ee")
                 }
             }
+            
+            println("按钮tag值为\(self.viewController.leftButton.tag)")
         }
         //手势变化中
         if(panGesture.state == UIGestureRecognizerState.Changed){
@@ -208,12 +215,12 @@ class StartView:UIViewController ,LeftButtonProtocol ,UIGestureRecognizerDelegat
             panGesture.setTranslation(CGPointMake(0,0),inView:self.view)
             
             //If you needed to check for a change in direction, you could use this code to do so.
-            if((velocity.x * preVelocity.x + velocity.y * preVelocity.y) > 0){
-                println("same direction")
-            }else{
-                println("opposite direction")
-            }
-            preVelocity = velocity            
+//            if((velocity.x * preVelocity.x + velocity.y * preVelocity.y) > 0){
+//                println("same direction")
+//            }else{
+//                println("opposite direction")
+//            }
+            preVelocity = velocity
         }
     }
 }
